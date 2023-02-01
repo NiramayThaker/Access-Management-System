@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .forms import RegisterForm
+from .forms import RegisterForm, PostForms
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 
@@ -27,3 +27,19 @@ def sign_up(request):
 
 	context = {"form": form}
 	return render(request, 'registration/sign_up.html', context=context)
+
+
+@login_required(login_url="/login")
+def create_post(request):
+	post_form = PostForms()
+	if request.method == "POST":
+		post_form = PostForms(request.POST)
+		if post_form.is_valid():
+			post_form.save(commit=False)
+			post_form.author = request.user
+			post_form.save()
+
+			return redirect("/")
+
+	context = {"post_form": post_form}
+	return render(request, "main/posts.html", context=context)
