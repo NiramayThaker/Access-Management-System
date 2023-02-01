@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<form action="" method="post">
+<form method="POST">
 
     {% csrf_token %} {{post_form|crispy}}
     <button type="submit" class="btn btn-success">Post</button>

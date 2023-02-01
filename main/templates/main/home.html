@@ -11,7 +11,7 @@
         <div class="card-header"><strong>@{{ post.author.username }}</strong>
         <div class="card-body d-flex flex-row justify-content-between">
             <div>
-                <hS class="card-title">{{post.title}}</h5>
+                <h5 class="card-title">{{post.title}}</h5>
                 <p>{{post.description}}</p>
             </div>
 
@@ -20,7 +20,7 @@
 
                     <form method="post">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-danger" id={{post.id}} name="post-id">
+                        <button type="submit" class="btn btn-danger" value="{{post.id}}" name="post-id">
                             DELETE
                         </button>
                     </form>

@@ -11,6 +11,13 @@ def index(request):
 	posts = Post.objects.all()
 	context = {"posts": posts}
 
+	if request.method == 'POST':
+		post_id = request.POST.get('post-id')
+		post = Post.objects.filter(id=post_id).first()
+		if post and post.author == request.user:
+			post.delete()
+			return redirect('/')
+
 	return render(request, 'main/home.html', context=context)
 
 
