@@ -21,13 +21,14 @@ def index(request):
 			if post and (post.author == request.user or request.user.has_perms("main.delete_post")):
 				post.delete()
 		elif user_id:
-			user = User.objects.get(id=user_id)
-			if user and user.is_staff:
+			user = User.objects.filter(id=user_id).first()
+			if user and request.user.is_staff:
 				try:
 					group = Group.objects.get(name='default')
 					group.user_set.remove(user)
 				except:
 					pass
+
 				try:
 					group = Group.objects.get(name='mod')
 					group.user_set.remove(user)
