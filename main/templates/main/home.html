@@ -26,6 +26,17 @@
                     </form>
 
                 {% endif %}
+
+                <br>
+
+                {% if user.is_staff %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-warning" value="{{author.id}}" name="user-id">
+                            BAN User
+                        </button>
+                    </form>
+                {% endif %}
             </div>
 
         </div>
